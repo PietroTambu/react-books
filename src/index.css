@@ -68,11 +68,6 @@ body {
 .fit-content {
   width: fit-content;
 }
-.book-detail-image {
-  height: 75vh;
-  max-height: 500px;
-  margin: auto;
-}
 
 .error-page {
   display: flex;

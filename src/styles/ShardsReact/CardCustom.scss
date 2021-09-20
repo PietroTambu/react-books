@@ -25,7 +25,9 @@
     max-width: 1000px;
     margin-bottom: 3rem;
   }
-
+  .col-card {
+    max-width: 400px;
+  }
   &.book-card:hover {
     transform: scale(1.025);
     transition: all .5s ease;
@@ -64,9 +66,12 @@
   flex: 1 1 auto;
   // Workaround for the image size bug in IE
   // See: https://github.com/twbs/bootstrap/pull/28855
-  padding: 2rem 1.5rem 2rem 0;
+  padding: 2rem 1.5rem 2rem 1.5rem;
   min-height: 1px;
   color: $card-color;
+  &.single-book-card {
+    min-width: 300px;
+  }
 }
 
 .card-title {
@@ -103,6 +108,9 @@
   background-color: $card-cap-bg;
   border-bottom: $card-border-width solid $card-border-color;
   text-align: center;
+  & h1,h2,h3,h4,h5,h6 {
+    margin-bottom: 0;
+  }
   &:first-child {
     @include border-radius($card-inner-border-radius $card-inner-border-radius 0 0);
   }
@@ -155,7 +163,8 @@
 .card-img-top,
 .card-img-bottom {
   flex-shrink: 0; // For IE: https://github.com/twbs/bootstrap/issues/29396
-  width: 100%; // Required because we use flexbox and this inherently applies align-self: stretch
+  width: 40vw; // Required because we use flexbox and this inherently applies align-self: stretch
+  max-width: 300px;
 }
 
 .card-img,

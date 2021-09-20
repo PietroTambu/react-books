@@ -3,6 +3,7 @@ import Loading from '../components/Loading'
 import { useParams, useHistory } from 'react-router-dom'
 import { Card, CardBody, CardTitle, CardSubtitle, CardHeader, CardImg, CardFooter, Button, Row, Col } from "shards-react";
 import requestData from "../core/request";
+import axios from "axios";
 
 const url = 'https://www.googleapis.com/books/v1/volumes/'
 
@@ -37,6 +38,16 @@ const SingleBook = () => {
 
     const { title, language, authors, categories, image, description, averageRating, ratingCount, infoLink, ISBN_13, ISBN_10, pageCount} = book;
 
+    const checkUrl  = async () => {
+        axios.get(infoLink)
+            .then(() => {
+                console.log('responde')
+            })
+            .catch((error) => {
+                console.log('error', error)
+            })
+    }
+
     return (
         <section>
             <div className='mx-auto fit-content my-4'>
@@ -48,13 +59,13 @@ const SingleBook = () => {
                     <h4>{authors}</h4>
                 </CardHeader>
                     <Row xs={1} sm={1} md={1} lg={1} xl={1} xxl={2}>
-                        <Col className='py-5'>
+                        <Col className='py-5 col-card mx-auto'>
                             <div className='fit-content mx-auto'>
-                                <CardImg src={image} alt={title} className='book-detail-image ms-3'/>
+                                <CardImg src={image} alt={title} className='ms-3 card-img'/>
                             </div>
                         </Col>
                         <Col>
-                            <CardBody>
+                            <CardBody className='single-book-card'>
                                 <CardTitle>
                                     <h3 className='mt-2 mb-4'>{title}</h3>
                                 </CardTitle>
@@ -64,7 +75,8 @@ const SingleBook = () => {
                                 <p>{!averageRating ? '' : 'Rating: ' + averageRating + '/5, '} Reviews: {ratingCount}</p>
                                 <p>ISBN_10: {ISBN_10}</p>
                                 <p>ISBN_13: {ISBN_13}</p>
-                                <a href={infoLink} target='_blank'><Button size='sm' theme='light'>More info</Button></a>
+                                <p>Page Count: {pageCount}</p>
+                                <a href={infoLink} target='_blank'><Button size='sm' theme='light' onClick={() => {checkUrl()}}>More info</Button></a>
                                 <h4 className='my-3'>Description: <Button theme='light' pill size='sm' onClick={() => {setCollapse(!collapse)}} className={description.replace(/<[^>]+>/g, '').length > 500 ? '' : 'd-none'}>More</Button></h4>
                                 <p>{!collapse ? (description.replace(/<[^>]+>/g, '').length > 500) ? description.replace(/<[^>]+>/g, '').slice(0, 500).concat('...') : description.replace(/<[^>]+>/g, '') : description.replace(/<[^>]+>/g, '')}</p>
                             </CardBody>
