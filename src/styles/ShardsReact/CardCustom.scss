@@ -17,6 +17,21 @@
   @include border-radius($card-border-radius);
   transition: all .5s ease;
 
+  &.book-card {
+    width: 18rem
+  }
+
+  &.single-book-card {
+    max-width: 1000px;
+    margin-bottom: 3rem;
+  }
+
+  &.book-card:hover {
+    transform: scale(1.025);
+    transition: all .5s ease;
+    cursor: pointer;
+  }
+
   > hr {
     margin-right: 0;
     margin-left: 0;
@@ -36,7 +51,6 @@
       @include border-bottom-radius($card-inner-border-radius);
     }
   }
-
   // Due to specificity of the above selector (`.card > .list-group`), we must
   // use a child selector here to prevent double borders.
   > .card-header + .list-group,
@@ -44,21 +58,14 @@
     border-top: 0;
   }
 }
-
-.card:hover {
-  transform: scale(1.025);
-  transition: all .5s ease;
-  cursor: pointer;
-}
-
 .card-body {
   // Enable `flex-grow: 1` for decks and groups so that card blocks take up
   // as much space as possible, ensuring footers are aligned to the bottom.
   flex: 1 1 auto;
   // Workaround for the image size bug in IE
   // See: https://github.com/twbs/bootstrap/pull/28855
+  padding: 2rem 1.5rem 2rem 0;
   min-height: 1px;
-  padding: $card-spacer-x;
   color: $card-color;
 }
 
@@ -95,7 +102,7 @@
   color: $card-cap-color;
   background-color: $card-cap-bg;
   border-bottom: $card-border-width solid $card-border-color;
-
+  text-align: center;
   &:first-child {
     @include border-radius($card-inner-border-radius $card-inner-border-radius 0 0);
   }

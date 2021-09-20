@@ -1,15 +1,17 @@
 import React from 'react'
 import Loading from '../components/Loading'
-import { useParams, Link } from 'react-router-dom'
-import { Button, Container, Row, Col } from 'react-bootstrap'
+import { useParams, useHistory } from 'react-router-dom'
+import { Card, CardBody, CardTitle, CardSubtitle, CardHeader, CardImg, CardFooter, Button, Row, Col } from "shards-react";
 import requestData from "../core/request";
 
 const url = 'https://www.googleapis.com/books/v1/volumes/'
 
 const SingleBook = () => {
+    const history = useHistory();
     const {id} = useParams();
     const [loading, setLoading] = React.useState(false);
     const [book, setBook] = React.useState(null);
+    const [collapse, setCollapse] = React.useState(false);
 
     React.useEffect(async () => {
         setLoading(true);
@@ -25,38 +27,51 @@ const SingleBook = () => {
     if (!book) {
         return (
             <>
-                <div className='mx-auto fit-content mt-5'>
-                    <Button variant='secondary'><Link to='/' className='text-white text-decoration-none'>Back Home</Link></Button>
+                <div className='mx-auto fit-content my-4'>
+                    <Button theme='secondary' onClick={() => {history.push('/')}}>Back Home</Button>
                 </div>
                 <h2 className='text-center mt-5'>Book Not Found</h2>
             </>
         )
     }
 
-    const { title, language, authors, categories, image, description } = book;
+    const { title, language, authors, categories, image, description, averageRating, ratingCount, infoLink, ISBN_13, ISBN_10, pageCount} = book;
+
     return (
         <section>
             <div className='mx-auto fit-content my-4'>
-                <Button variant='secondary'><Link to='/' className='text-white text-decoration-none'>Back Home</Link></Button>
+                <Button theme='secondary' onClick={() => {history.push('/')}}>Back Home</Button>
             </div>
-            <Container>
-                <Row xs={1} sm={1} md={1} lg={2} xl={2} xxl={2}>
-                    <Col md='auto' lg='auto' xl='auto' xxl='auto' className='mx-auto pt-5'>
-                        <div className='fit-content mx-auto border border-dark'>
-                            <img src={image} alt={title} className='book-detail-image mx-auto'/>
-                        </div>
-                    </Col>
-                    <Col className='mx-auto'>
-                        <h4 className='mb-2 mt-5'>{authors}</h4>
-                        <h3 className='mt-2 mb-4'>{title}</h3>
-                        <h4 className='my-3'>Language: <span className='not-bold'>{language.toUpperCase()}</span></h4>
-                        <h4 className='my-3'>Categories: </h4>
-                        <p>{categories}</p>
-                        <h4 className='my-3'>Description:</h4>
-                        <p>{description.replace(/<[^>]+>/g, '')}</p>
-                    </Col>
-                </Row>
-            </Container>
+            <div className='w-75 mx-auto'>
+                <Card className='single-book-card mx-auto'>
+                <CardHeader>
+                    <h4>{authors}</h4>
+                </CardHeader>
+                    <Row xs={1} sm={1} md={1} lg={1} xl={1} xxl={2}>
+                        <Col className='py-5'>
+                            <div className='fit-content mx-auto'>
+                                <CardImg src={image} alt={title} className='book-detail-image ms-3'/>
+                            </div>
+                        </Col>
+                        <Col>
+                            <CardBody>
+                                <CardTitle>
+                                    <h3 className='mt-2 mb-4'>{title}</h3>
+                                </CardTitle>
+                                <h4 className='my-3'>Language: <span className='not-bold'>{language.toUpperCase()}</span></h4>
+                                <h4 className='my-3'>Categories: </h4>
+                                <p>{categories}</p>
+                                <p>{!averageRating ? '' : 'Rating: ' + averageRating + '/5, '} Reviews: {ratingCount}</p>
+                                <p>ISBN_10: {ISBN_10}</p>
+                                <p>ISBN_13: {ISBN_13}</p>
+                                <a href={infoLink} target='_blank'><Button size='sm' theme='light'>More info</Button></a>
+                                <h4 className='my-3'>Description: <Button theme='light' pill size='sm' onClick={() => {setCollapse(!collapse)}} className={description.replace(/<[^>]+>/g, '').length > 500 ? '' : 'd-none'}>More</Button></h4>
+                                <p>{!collapse ? (description.replace(/<[^>]+>/g, '').length > 500) ? description.replace(/<[^>]+>/g, '').slice(0, 500).concat('...') : description.replace(/<[^>]+>/g, '') : description.replace(/<[^>]+>/g, '')}</p>
+                            </CardBody>
+                        </Col>
+                    </Row>
+                </Card>
+            </div>
         </section>
     )
 }

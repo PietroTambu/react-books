@@ -7,18 +7,17 @@ import {
     CardImg,
     CardBody,
     CardFooter,
-    Button
+    Button,
+    Col
 } from "shards-react";
-import { Col } from 'react-bootstrap';
-
 
 const Book = ({ id, title, authors, image, averageRating, ratingCount }) => {
     let history = useHistory();
     return (
         <Col className='my-3'>
-            <Card style={{ width: '18rem' }} className={'mx-auto'} border='secondary' onClick={() => {history.push(`/book/${id}`)}}>
-                <CardHeader className='text-center'>{authors === '' ? 'Author: Unvailable' : authors}</CardHeader>
-                <CardImg variant='top' src={image} />
+            <Card className='mx-auto book-card' border='secondary' onClick={() => {history.push(`/book/${id}`)}}>
+                <CardHeader>{authors === '' ? 'Author: Unvailable' : authors}</CardHeader>
+                <CardImg variant='top' src={image} alt='image not available'/>
                 <CardBody>
                     <CardTitle className='text-center mt-1 mb-3'>{title}</CardTitle>
                     <p className='text-center'>{!averageRating ? '' : 'Rating: ' + averageRating + '/5, '} Reviews: {ratingCount}</p>
