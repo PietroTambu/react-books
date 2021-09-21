@@ -2,6 +2,7 @@ import React from 'react'
 import Loading from '../components/Loading'
 import { useParams, useHistory } from 'react-router-dom'
 import { Card, CardBody, CardTitle, CardSubtitle, CardHeader, CardImg, CardFooter, Button, Row, Col } from "shards-react";
+import { BsBoxArrowUpRight } from "react-icons/bs"
 import requestData from "../core/request";
 import axios from "axios";
 
@@ -67,16 +68,15 @@ const SingleBook = () => {
                         <Col>
                             <CardBody className='single-book-card'>
                                 <CardTitle>
-                                    <h3 className='mt-2 mb-4'>{title}</h3>
+                                    <h3 className='mt-2 mb-4 text-center'>{title}</h3>
                                 </CardTitle>
-                                <h4 className='my-3'>Language: <span className='not-bold'>{language.toUpperCase()}</span></h4>
-                                <h4 className='my-3'>Categories: </h4>
-                                <p>{categories}</p>
+                                <p className='my-3'>Categories: <p>{categories}</p></p>
                                 <p>{!averageRating ? '' : 'Rating: ' + averageRating + '/5, '} Reviews: {ratingCount}</p>
+                                <p>Page Count: {pageCount}</p>
+                                <p className='my-3'>Language: <span className='not-bold'>{language.toUpperCase()}</span></p>
                                 <p>ISBN_10: {ISBN_10}</p>
                                 <p>ISBN_13: {ISBN_13}</p>
-                                <p>Page Count: {pageCount}</p>
-                                <a href={infoLink} target='_blank'><Button size='sm' theme='light' onClick={() => {checkUrl()}}>More info</Button></a>
+                                <a href={infoLink} target='_blank'><Button size='sm' theme='light' onClick={() => {checkUrl()}}>More info <BsBoxArrowUpRight /></Button></a>
                                 <h4 className='my-3'>Description: <Button theme='light' pill size='sm' onClick={() => {setCollapse(!collapse)}} className={description.replace(/<[^>]+>/g, '').length > 500 ? '' : 'd-none'}>More</Button></h4>
                                 <p>{!collapse ? (description.replace(/<[^>]+>/g, '').length > 500) ? description.replace(/<[^>]+>/g, '').slice(0, 500).concat('...') : description.replace(/<[^>]+>/g, '') : description.replace(/<[^>]+>/g, '')}</p>
                             </CardBody>

@@ -1,16 +1,18 @@
 import React from 'react'
+import logo from '../logo.png'
 
 const About = () => {
     return (
-        <section className='section about-section'>
-            <h1 className='section-title'>About Us</h1>
-            <p className='w-50 mx-auto'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-                esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </p>
+        <section className='text-center text-nowrap'>
+            <div className='d-inline'>
+                <img alt="Logo" src={logo} height='45' width='45'/>
+                <h1 className='my-3 d-inline'>Books</h1>
+            </div>
+            <div className='border border-dark rounded-3 fit-content mx-auto p-3'>
+                <h3 className='mx-auto text-center'>React Project by <i>Pietro Tamburini</i></h3>
+                <h4 className='mx-auto text-center'>Book API by Google</h4>
+                <h4 className='mx-auto text-center'>Made By Pietro Tamburini</h4>
+            </div>
         </section>
     )
 }

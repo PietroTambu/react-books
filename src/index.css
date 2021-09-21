@@ -60,13 +60,12 @@ body {
   font-size: 1rem;
   font-weight: 300;
 }
-
+.fit-content {
+  width: fit-content;
+}
 
 .not-bold {
   font-weight: normal;
-}
-.fit-content {
-  width: fit-content;
 }
 
 .error-page {

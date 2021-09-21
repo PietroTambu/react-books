@@ -16,8 +16,8 @@ const BooksList = () => {
 
     return (
         <section>
-            <h2 className='section-title'>{searchTerm}</h2>
-            <Row sm={1} md={2} lg={3} xl={3} xxl={4} className='mx-auto book-list-row'>
+            <h2 className='section-title px-3'>{searchTerm}</h2>
+            <Row sm={1} md={2} lg={3} xl={3} xxl={4} className='mx-auto book-list-row mb-3'>
                 {books.map((item) => {return <Book key={item.id} {...item} />})}
             </Row>
         </section>
